@@ -4,49 +4,15 @@
 // Global radio instance
 static RadioComm g_radio;
 
-// Simple delay implementation
-void delay_us(uint32_t us) {
-    // Simple busy-wait delay for microsecond timing
-    // This is approximate and may need calibration
-    volatile uint32_t count = us * 10; // Rough approximation
-    while (count--) {
-        __asm__ volatile ("nop");
-    }
-}
-
-// GPIO functions
-void gpio_init(void) {
-    // ESP8266 GPIO initialization would go here
-    // For now, we'll assume this is handled by the ESP8266 Arduino framework
-}
-
-void gpio_write(uint8_t pin, bool level) {
-    // ESP8266 GPIO write would go here
-    // This will be implemented in the main Arduino file
-}
-
-bool gpio_read(uint8_t pin) {
-    // ESP8266 GPIO read would go here
-    // This will be implemented in the main Arduino file
-    return false;
-}
-
-// SPI functions
-void spi_init(void) {
-    // ESP8266 SPI initialization would go here
-    // This will be handled by the ESP8266 Arduino framework
-}
-
-uint8_t spi_transfer(uint8_t data) {
-    // ESP8266 SPI transfer would go here
-    // This will be implemented in the main Arduino file
-    return 0;
-}
-
-// Utility functions
-void delay_ms(uint32_t ms) {
-    // This will be implemented in the main Arduino file
-}
+// Function declarations - implementations are in main.c
+extern void gpio_init(void);
+extern void gpio_write(uint8_t pin, bool level);
+extern bool gpio_read(uint8_t pin);
+extern void spi_init(void);
+extern uint8_t spi_transfer(uint8_t data);
+extern void delay_ms(uint32_t ms);
+extern void delay_us(uint32_t us);
+extern uint32_t millis(void);
 
 void update_status_led(bool active) {
     static uint32_t last_blink = 0;

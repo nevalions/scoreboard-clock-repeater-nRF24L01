@@ -1,19 +1,20 @@
 #pragma once
 
+#include "driver/gpio.h"
 #include <stdint.h>
 #include <stdbool.h>
 
-// ESP8266 GPIO pins for nRF24L01+
-#define NRF24_CE_PIN 2
-#define NRF24_CSN_PIN 15
+// ESP32 GPIO pins for nRF24L01+ (changed from ESP8266)
+#define NRF24_CE_PIN GPIO_NUM_5
+#define NRF24_CSN_PIN GPIO_NUM_4
 
-// ESP8266 SPI pins
-#define NRF24_MOSI_PIN 13
-#define NRF24_MISO_PIN 12
-#define NRF24_SCK_PIN 14
+// ESP32 SPI pins (changed from ESP8266)
+#define NRF24_MOSI_PIN GPIO_NUM_23
+#define NRF24_MISO_PIN GPIO_NUM_19
+#define NRF24_SCK_PIN GPIO_NUM_18
 
 // Status LED
-#define STATUS_LED_PIN 16
+#define STATUS_LED_PIN GPIO_NUM_2
 
 // nRF24L01+ Commands
 #define NRF24_CMD_R_REGISTER 0x00
@@ -140,3 +141,6 @@ void delay_ms(uint32_t ms);
 void delay_us(uint32_t us);
 uint32_t millis(void);
 void update_status_led(bool active);
+
+// Getters for statistics
+RadioComm* get_radio_instance(void);

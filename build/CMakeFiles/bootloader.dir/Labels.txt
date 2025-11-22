@@ -1,0 +1,13 @@
+# Target labels
+ bootloader
+# Source files and their labels
+/home/linroot/code/scoreboard_clock/repeater/build/CMakeFiles/bootloader
+/home/linroot/code/scoreboard_clock/repeater/build/CMakeFiles/bootloader.rule
+/home/linroot/code/scoreboard_clock/repeater/build/CMakeFiles/bootloader-complete.rule
+/home/linroot/code/scoreboard_clock/repeater/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+/home/linroot/code/scoreboard_clock/repeater/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+/home/linroot/code/scoreboard_clock/repeater/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+/home/linroot/code/scoreboard_clock/repeater/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+/home/linroot/code/scoreboard_clock/repeater/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+/home/linroot/code/scoreboard_clock/repeater/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+/home/linroot/code/scoreboard_clock/repeater/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule

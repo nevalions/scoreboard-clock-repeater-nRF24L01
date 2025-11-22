@@ -1,0 +1,2 @@
+source /home/linroot/code/scoreboard_clock/repeater/build/gdbinit/symbols
+source /home/linroot/code/scoreboard_clock/repeater/build/gdbinit/connect

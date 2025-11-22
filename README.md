@@ -1,6 +1,6 @@
 # Repeater Module
 
-ESP8266-based repeater module for extending the scoreboard timer network range.
+ESP32-based repeater module for extending the scoreboard timer network range.
 
 ## Overview
 
@@ -8,27 +8,27 @@ The repeater module acts as a network extender that receives time data packets f
 
 ## Hardware
 
-- **MCU**: ESP8266 (NodeMCU v2 recommended)
+- **MCU**: ESP32 (ESP32-DevKitC recommended)
 - **Radio**: nRF24L01+ module
 - **Status LED**: Built-in LED (GPIO16)
 - **Power**: 5V USB or external power supply
 
 ## Wiring
 
-### ESP8266 to nRF24L01+ Connections
+### ESP32 to nRF24L01+ Connections
 
-| ESP8266 Pin | nRF24L01+ Pin | Function |
-|-------------|---------------|----------|
-| D4 (GPIO2)  | CE            | Chip Enable |
-| D8 (GPIO15) | CSN           | Chip Select |
-| D7 (GPIO13) | MOSI          | Master Out |
-| D6 (GPIO12) | MISO          | Master In |
-| D5 (GPIO14) | SCK           | Clock |
-| 3V3         | VCC           | Power (3.3V) |
-| GND         | GND           | Ground |
+| ESP32 Pin | nRF24L01+ Pin | Function |
+|-----------|---------------|----------|
+| GPIO5     | CE            | Chip Enable |
+| GPIO4     | CSN           | Chip Select |
+| GPIO23    | MOSI          | Master Out |
+| GPIO19    | MISO          | Master In |
+| GPIO18    | SCK           | Clock |
+| 3V3       | VCC           | Power (3.3V) |
+| GND       | GND           | Ground |
 
 ### Status LED
-- Built-in LED on GPIO16 shows network activity:
+- LED on GPIO2 shows network activity:
   - Fast blink (200ms): Active packet forwarding
   - Slow blink (1000ms): Idle/no activity
 
@@ -61,11 +61,11 @@ Byte 2: sequence number
 ## Installation
 
 1. Connect hardware as shown in wiring diagram
-2. Upload firmware using PlatformIO:
-   ```bash
-   cd repeater
-   pio run --target upload
-   ```
+2. Upload firmware using ESP-IDF:
+    ```bash
+    cd repeater
+    idf.py flash monitor
+    ```
 3. Monitor serial output at 115200 baud for debugging
 
 ## Placement Tips
