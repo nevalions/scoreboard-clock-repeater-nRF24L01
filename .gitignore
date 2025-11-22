@@ -1,19 +1,18 @@
-# PlatformIO
-.pio/
-.vscode/
-*.tmp
-*.bak
+# ESP-IDF build artifacts
+build/
+sdkconfig
+sdkconfig.old
 
-# Build artifacts
-.pioenvs/
-.piolibdeps/
-.clang_complete
-.gcc-flags.json
+# ESP-IDF cache
+.cache/
 
 # IDE files
+.vscode/
 *.swp
 *.swo
 *~
+*.tmp
+*.bak
 
 # OS files
 .DS_Store
@@ -21,3 +20,13 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Temporary files
+*.tmp
+*.bak
+*~

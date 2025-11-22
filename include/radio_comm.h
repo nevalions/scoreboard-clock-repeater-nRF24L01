@@ -4,11 +4,11 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-// ESP32 GPIO pins for nRF24L01+ (changed from ESP8266)
+// ESP32 GPIO pins for nRF24L01+
 #define NRF24_CE_PIN GPIO_NUM_5
 #define NRF24_CSN_PIN GPIO_NUM_4
 
-// ESP32 SPI pins (changed from ESP8266)
+// ESP32 SPI pins
 #define NRF24_MOSI_PIN GPIO_NUM_23
 #define NRF24_MISO_PIN GPIO_NUM_19
 #define NRF24_SCK_PIN GPIO_NUM_18
