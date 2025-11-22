@@ -1,41 +1,41 @@
-# Repeater Module Wiring
+# ESP32 Repeater Module Wiring
 
-## ESP8266 NodeMCU to nRF24L01+ Connection
+## ESP32 Development Board to nRF24L01+ Connection
 
 ### Pin Connections
 
-| NodeMCU Pin | GPIO Number | nRF24L01+ Pin | Wire Color |
-|-------------|-------------|---------------|------------|
-| D4          | GPIO2       | CE            | Blue       |
-| D8          | GPIO15      | CSN           | Yellow     |
-| D7          | GPIO13      | MOSI          | Green      |
-| D6          | GPIO12      | MISO          | Orange     |
-| D5          | GPIO14      | SCK           | White      |
-| 3V3         | -           | VCC           | Red        |
-| GND         | -           | GND           | Black      |
+| ESP32 Pin | Function | nRF24L01+ Pin | Wire Color |
+|-----------|----------|---------------|------------|
+| GPIO5     | CE       | CE            | Blue       |
+| GPIO4     | CSN      | CSN           | Yellow     |
+| GPIO23    | MOSI     | MOSI          | Green      |
+| GPIO19    | MISO     | MISO          | Orange     |
+| GPIO18    | SCK      | SCK           | White      |
+| 3V3       | Power    | VCC           | Red        |
+| GND       | Ground   | GND           | Black      |
 
 ### Status LED
-- Built-in LED on GPIO16 (D0) shows network activity
+- Built-in LED on GPIO2 shows network activity
 
 ## Wiring Diagram
 
 ```
-NodeMCU                nRF24L01+
--------                ----------
-D4 (GPIO2) ----------- CE
-D8 (GPIO15) ---------- CSN  
-D7 (GPIO13) ---------- MOSI
-D6 (GPIO12) ---------- MISO
-D5 (GPIO14) ---------- SCK
+ESP32 Board            nRF24L01+
+-----------            ----------
+GPIO5 ---------------- CE
+GPIO4 ---------------- CSN  
+GPIO23 --------------- MOSI
+GPIO19 --------------- MISO
+GPIO18 --------------- SCK
 3V3 ------------------ VCC
 GND ------------------ GND
 
-Built-in LED (GPIO16) - Status Indicator
+Built-in LED (GPIO2) - Status Indicator
 ```
 
 ## Power Considerations
 
-- Use NodeMCU's 3V3 pin for nRF24L01+ power (max 12mA draw)
+- Use ESP32 board's 3V3 pin for nRF24L01+ power (max 12mA draw)
 - For better stability, consider external 3.3V supply with capacitor
 - Add 10µF capacitor across VCC/GND close to nRF24L01+ module
 
@@ -47,13 +47,13 @@ Built-in LED (GPIO16) - Status Indicator
 
 ## Testing
 
-1. Verify connections with multimeter
+1. Verify ESP32 board connections with multimeter
 2. Check for 3.3V on VCC pin
 3. Monitor status LED - should blink rapidly when forwarding packets
 4. Use serial monitor at 115200 baud for debug output
 
 ## Troubleshooting
 
-- **No LED activity**: Check power and CE/CSN connections
+- **No LED activity**: Check ESP32 board power and CE/CSN connections
 - **Erratic behavior**: Add 10µF capacitor across power pins
 - **Poor range**: Check antenna orientation and interference sources
