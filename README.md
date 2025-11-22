@@ -1,16 +1,16 @@
-# Repeater Module
+# ESP32 Repeater Module
 
-ESP32-based repeater module for extending the scoreboard timer network range.
+ESP32 board-based repeater module for extending the scoreboard timer network range.
 
 ## Overview
 
-The repeater module acts as a network extender that receives time data packets from the controller and retransmits them to extend the wireless range. It operates transparently - the existing controller and play clock modules work unchanged whether the repeater is present or not.
+The repeater module uses an ESP32 development board as a network extender that receives time data packets from the controller and retransmits them to extend the wireless range. It operates transparently - the existing controller and play clock modules work unchanged whether the repeater is present or not.
 
 ## Hardware
 
-- **MCU**: ESP32 (ESP32-DevKitC recommended)
+- **Board**: ESP32 Development Board (ESP32-DevKitC or compatible)
 - **Radio**: nRF24L01+ module
-- **Status LED**: Built-in LED (GPIO16)
+- **Status LED**: Built-in LED (GPIO2)
 - **Power**: 5V USB or external power supply
 
 ## Wiring
@@ -28,7 +28,7 @@ The repeater module acts as a network extender that receives time data packets f
 | GND       | GND           | Ground |
 
 ### Status LED
-- LED on GPIO2 shows network activity:
+- Built-in LED on GPIO2 shows network activity:
   - Fast blink (200ms): Active packet forwarding
   - Slow blink (1000ms): Idle/no activity
 
@@ -60,8 +60,8 @@ Byte 2: sequence number
 
 ## Installation
 
-1. Connect hardware as shown in wiring diagram
-2. Upload firmware using ESP-IDF:
+1. Connect ESP32 board and nRF24L01+ module as shown in wiring diagram
+2. Upload firmware to ESP32 board using ESP-IDF:
     ```bash
     cd repeater
     idf.py flash monitor
