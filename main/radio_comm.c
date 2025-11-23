@@ -45,14 +45,14 @@ void update_status_led(bool active) {
         // Fast blink when active
         if (millis() - last_blink > 200) {
             blink_state = !blink_state;
-            gpio_write(STATUS_LED_PIN, blink_state);
+            gpio_write(RADIO_STATUS_LED_PIN, blink_state);
             last_blink = millis();
         }
     } else {
         // Slow blink when idle
         if (millis() - last_blink > 1000) {
             blink_state = !blink_state;
-            gpio_write(STATUS_LED_PIN, blink_state);
+            gpio_write(RADIO_STATUS_LED_PIN, blink_state);
             last_blink = millis();
         }
     }

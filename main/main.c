@@ -25,23 +25,23 @@ void gpio_init(void) {
     // Configure CE pin as output
     io_conf.intr_type = GPIO_INTR_DISABLE;
     io_conf.mode = GPIO_MODE_OUTPUT;
-    io_conf.pin_bit_mask = (1ULL << NRF24_CE_PIN);
+    io_conf.pin_bit_mask = (1ULL << RADIO_CE_PIN);
     io_conf.pull_down_en = 0;
     io_conf.pull_up_en = 0;
     gpio_config(&io_conf);
     
     // Configure CSN pin as output
-    io_conf.pin_bit_mask = (1ULL << NRF24_CSN_PIN);
+    io_conf.pin_bit_mask = (1ULL << RADIO_CSN_PIN);
     gpio_config(&io_conf);
     
     // Configure Status LED pin as output
-    io_conf.pin_bit_mask = (1ULL << STATUS_LED_PIN);
+    io_conf.pin_bit_mask = (1ULL << RADIO_STATUS_LED_PIN);
     gpio_config(&io_conf);
     
     // Initialize to safe states
-    gpio_set_level(NRF24_CE_PIN, 0);
-    gpio_set_level(NRF24_CSN_PIN, 1);
-    gpio_set_level(STATUS_LED_PIN, 0);
+    gpio_set_level(RADIO_CE_PIN, 0);
+    gpio_set_level(RADIO_CSN_PIN, 1);
+    gpio_set_level(RADIO_STATUS_LED_PIN, 0);
 }
 
 void gpio_write(uint8_t pin, bool level) {
@@ -55,9 +55,9 @@ bool gpio_read(uint8_t pin) {
 // ESP-IDF SPI functions
 void spi_init(void) {
     spi_bus_config_t buscfg = {
-        .mosi_io_num = NRF24_MOSI_PIN,
-        .miso_io_num = NRF24_MISO_PIN,
-        .sclk_io_num = NRF24_SCK_PIN,
+        .mosi_io_num = RADIO_MOSI_PIN,
+        .miso_io_num = RADIO_MISO_PIN,
+        .sclk_io_num = RADIO_SCK_PIN,
         .quadwp_io_num = -1,
         .quadhd_io_num = -1,
         .max_transfer_sz = 32,
@@ -114,9 +114,9 @@ void app_main(void) {
     if (!radio_init(radio)) {
         ESP_LOGE(TAG, "Radio initialization failed!");
         while (1) {
-            gpio_write(STATUS_LED_PIN, 1);
+            gpio_write(RADIO_STATUS_LED_PIN, 1);
             delay_ms(100);
-            gpio_write(STATUS_LED_PIN, 0);
+            gpio_write(RADIO_STATUS_LED_PIN, 0);
             delay_ms(100);
         }
     }
