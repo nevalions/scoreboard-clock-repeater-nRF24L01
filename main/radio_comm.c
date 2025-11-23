@@ -64,8 +64,22 @@ bool radio_init(RadioComm *radio) {
 }
 
 void radio_start_listening(RadioComm *radio) {
+    if (!radio->base.initialized)
+        return;
+
+    // Ensure we're in RX mode
+    gpio_write(radio->base.ce_pin, LOW);
+    nrf24_write_register(&radio->base, NRF24_REG_CONFIG, RADIO_CONFIG_RX_MODE);
+    delay_ms(2); // Small delay to ensure mode switch
+    
+    // Clear any pending RX flags
+    nrf24_write_register(&radio->base, NRF24_REG_STATUS, RADIO_STATUS_CLEAR_ALL);
+    
+    // Flush RX FIFO to start fresh
+    nrf24_flush_rx(&radio->base);
+    
+    // Start listening
     gpio_write(radio->base.ce_pin, HIGH);
-    delay_us(130); // Delay to enter RX mode
 }
 
 void radio_stop_listening(RadioComm *radio) {
