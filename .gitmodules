@@ -1,3 +1,6 @@
 [submodule "radio-common"]
 	path = radio-common
 	url = https://github.com/nevalions/scoreboard-clock-radio-common-nrf24.git
+[submodule "components/radio-common"]
+	path = components/radio-common
+	url = https://github.com/nevalions/scoreboard-clock-radio-common-nrf24.git
