@@ -9,6 +9,12 @@
 
 **Note**: This is an ESP-IDF project for ESP32 development board, not PlatformIO. Requires ESP-IDF environment setup.
 
+## Submodule Management
+- **radio-common**: Git submodule in components/radio-common/
+- **Update**: `git submodule update --remote` to pull latest changes
+- **Status**: `git submodule status` to check current commit
+- **Isolation**: Each module maintains its own radio-common version
+
 ## Code Style Guidelines
 - **Language**: C with ESP-IDF framework for ESP32 board
 - **Formatting**: 4-space indentation, no tabs
@@ -25,11 +31,13 @@
 
 ## Architecture
 - **Hardware Abstraction**: ESP-IDF drivers for ESP32 board in main.c, radio logic in radio_comm.c/h
-- **Radio Layer**: nRF24L01+ communication in radio_comm.c/h
+- **Radio Layer**: nRF24L01+ communication using radio-common submodule in components/radio-common/
 - **Data Structures**: TimeData struct for packet format (3 bytes: seconds_high, seconds_low, sequence)
 - **GPIO**: ESP32 board pins defined as constants (CE=5, CSN=4, LED=2)
 - **SPI**: 1MHz clock, MSB first, Mode 0 using ESP-IDF SPI driver
 - **FreeRTOS**: Main loop in app_main task, use vTaskDelay for timing
+- **Components**: Modular ESP-IDF component architecture with radio-common as separate submodule
+- **Components**: Modular ESP-IDF component architecture with radio-common as separate submodule
 
 ## Compatibility
 - **Protocol**: Compatible with existing ESP32 board controller and playclock modules
@@ -39,3 +47,9 @@
 
 ## Testing
 No automated test framework - verify via serial monitor and hardware testing.
+
+## Submodule Management
+- **radio-common**: Git submodule in components/radio-common/
+- **Update**: `git submodule update --remote` to pull latest changes
+- **Status**: `git submodule status` to check current commit
+- **Isolation**: Each module maintains its own radio-common version

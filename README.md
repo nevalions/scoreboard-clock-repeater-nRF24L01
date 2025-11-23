@@ -13,6 +13,14 @@ The repeater module uses an ESP32 development board as a network extender that r
 - **Status LED**: Built-in LED (GPIO2)
 - **Power**: 5V USB or external power supply
 
+## Components
+
+- **radio-common**: Git submodule providing nRF24L01+ radio abstraction
+  - Location: `components/radio-common/`
+  - Repository: https://github.com/nevalions/scoreboard-clock-radio-common-nrf24.git
+  - Purpose: Hardware-agnostic radio communication layer
+  - Update: `git submodule update --remote`
+
 ## Wiring
 
 ### ESP32 to nRF24L01+ Connections
@@ -83,6 +91,16 @@ Every 30 seconds, the repeater outputs statistics:
 - Link status
 - Last received data
 
+## Architecture
+
+- **Hardware Abstraction**: ESP-IDF drivers for ESP32 board in main.c, radio logic in radio_comm.c/h
+- **Radio Layer**: nRF24L01+ communication using radio-common submodule in components/radio-common/
+- **Data Structures**: TimeData struct for packet format (3 bytes: seconds_high, seconds_low, sequence)
+- **GPIO**: ESP32 board pins defined as constants (CE=5, CSN=4, LED=2)
+- **SPI**: 1MHz clock, MSB first, Mode 0 using ESP-IDF SPI driver
+- **FreeRTOS**: Main loop in app_main task, use vTaskDelay for timing
+- **Components**: Modular ESP-IDF component architecture with radio-common as separate submodule
+
 ## Integration
 
 The repeater is completely transparent to the system:
@@ -91,3 +109,9 @@ The repeater is completely transparent to the system:
 - **System**: Works with or without repeater present
 
 Multiple repeaters can be deployed for larger areas - they will automatically forward packets creating a mesh-like extension.
+
+## Submodule Management
+
+- **radio-common**: Git submodule tracking HEAD of https://github.com/nevalions/scoreboard-clock-radio-common-nrf24.git
+- **Update**: `git submodule update --remote` to get latest radio-common changes
+- **Isolation**: Each module has its own radio-common copy for independent versioning
