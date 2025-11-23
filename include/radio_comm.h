@@ -3,6 +3,8 @@
 #include "driver/gpio.h"
 #include <stdint.h>
 #include <stdbool.h>
+#include "../../radio-common/include/radio_common.h"
+#include "../../radio-common/include/radio_config.h"
 
 // ESP32 GPIO pins for nRF24L01+
 #define NRF24_CE_PIN GPIO_NUM_5
@@ -81,15 +83,9 @@
 #define NETWORK_CHANNEL 76
 #define NETWORK_ADDRESS {0xE7, 0xE7, 0xE7, 0xE7, 0xE7}
 
-// Radio communication structure
+// Radio communication structure - extends RadioCommon with repeater-specific fields
 typedef struct {
-    bool initialized;
-    uint8_t ce_pin;
-    uint8_t csn_pin;
-    
-    // Radio configuration
-    uint8_t tx_address[5];
-    uint8_t rx_address[5];
+    RadioCommon base;  // radio-common base structure
     
     // Statistics
     uint32_t packets_received;
@@ -114,14 +110,7 @@ bool radio_is_data_available(RadioComm *radio);
 void radio_flush_rx(RadioComm *radio);
 void radio_flush_tx(RadioComm *radio);
 
-// Low-level functions
-uint8_t nrf24_read_register(RadioComm *radio, uint8_t reg);
-bool nrf24_write_register(RadioComm *radio, uint8_t reg, uint8_t value);
-bool nrf24_read_payload(RadioComm *radio, uint8_t *data, uint8_t length);
-bool nrf24_write_payload(RadioComm *radio, uint8_t *data, uint8_t length);
-uint8_t nrf24_get_status(RadioComm *radio);
-void nrf24_power_up(RadioComm *radio);
-void nrf24_power_down(RadioComm *radio);
+// Low-level functions - use radio-common implementations
 
 // GPIO functions
 void gpio_init(void);
