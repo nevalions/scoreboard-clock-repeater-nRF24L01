@@ -1,4 +1,4 @@
-# ESP32 Board Repeater Module - Agent Guidelines
+# ESP32 Repeater Module - Agent Guidelines
 
 ## Build Commands
 - `idf.py build` - Build the project for ESP32 board
@@ -9,7 +9,7 @@
 
 **Note**: This is an ESP-IDF project for ESP32 development board, not PlatformIO. Requires ESP-IDF environment setup.
 
-## Radio Common Library
+## Dependencies
 - **radio-common**: Located in parent folder `../radio-common/`
 - **Shared**: Uses shared radio-common library across all modules
 
@@ -28,19 +28,20 @@
 - **Comments**: Minimal, only for complex hardware interactions
 - **Git Commits**: Never use opencode user in git commit messages
 
-## Architecture
-- **Hardware Abstraction**: ESP-IDF drivers for ESP32 board in main.c, radio logic in radio_comm.c/h
-- **Radio Layer**: nRF24L01+ communication using radio-common library from parent folder
-- **Data Structures**: TimeData struct for packet format (3 bytes: seconds_high, seconds_low, sequence)
-- **GPIO**: ESP32 board pins defined as constants (CE=5, CSN=4, LED=2)
-- **SPI**: 1MHz clock, MSB first, Mode 0 using ESP-IDF SPI driver
+## Development Guidelines
+- **File Organization**: 
+  - `main/main.c`: ESP32 hardware abstraction and main task
+  - `main/radio_comm.c`: Radio communication logic
+  - `include/radio_comm.h`: Radio interface declarations
+- **GPIO Constants**: CE=5, CSN=4, LED=2 (defined in main.c)
+- **SPI Configuration**: 1MHz clock, MSB first, Mode 0 using ESP-IDF SPI driver
 - **FreeRTOS**: Main loop in app_main task, use vTaskDelay for timing
-- **Components**: Modular ESP-IDF component architecture with radio-common as separate component
+- **Data Structure**: TimeData struct (3 bytes: seconds_high, seconds_low, sequence)
 
-## Compatibility
-- **Protocol**: Compatible with existing ESP32 board controller and playclock modules
-- **Radio Settings**: Same channel (76), address (0xE7E7E7E7E7), data rate (1Mbps)
-- **Packet Format**: 3-byte TimeData structure (seconds_high, seconds_low, sequence)
+## Protocol Compatibility
+- **Channel**: 76
+- **Address**: 0xE7E7E7E7E7
+- **Data Rate**: 1Mbps
 - **Auto-ACK**: Disabled for transparent packet forwarding
 
 ## Testing

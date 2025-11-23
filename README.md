@@ -1,6 +1,6 @@
 # ESP32 Repeater Module
 
-ESP32 board-based repeater module for extending the scoreboard timer network range.
+ESP32-based repeater module for extending the scoreboard timer network range.
 
 ## Overview
 
@@ -89,15 +89,7 @@ Every 30 seconds, the repeater outputs statistics:
 - Link status
 - Last received data
 
-## Architecture
 
-- **Hardware Abstraction**: ESP-IDF drivers for ESP32 board in main.c, radio logic in radio_comm.c/h
-- **Radio Layer**: nRF24L01+ communication using radio-common library from parent folder
-- **Data Structures**: TimeData struct for packet format (3 bytes: seconds_high, seconds_low, sequence)
-- **GPIO**: ESP32 board pins defined as constants (CE=5, CSN=4, LED=2)
-- **SPI**: 1MHz clock, MSB first, Mode 0 using ESP-IDF SPI driver
-- **FreeRTOS**: Main loop in app_main task, use vTaskDelay for timing
-- **Components**: Modular ESP-IDF component architecture with radio-common as separate component
 
 ## Integration
 
