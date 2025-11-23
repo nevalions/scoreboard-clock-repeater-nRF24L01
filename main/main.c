@@ -10,81 +10,12 @@
 
 static const char *TAG = "repeater";
 
-// SPI device handle
-static spi_device_handle_t spi_handle;
+
 
 // Global variables
 static RadioComm *radio;
 static TimeData last_received_data;
 static bool data_received = false;
-
-// ESP-IDF GPIO functions
-void gpio_init(void) {
-    gpio_config_t io_conf = {};
-    
-    // Configure CE pin as output
-    io_conf.intr_type = GPIO_INTR_DISABLE;
-    io_conf.mode = GPIO_MODE_OUTPUT;
-    io_conf.pin_bit_mask = (1ULL << RADIO_CE_PIN);
-    io_conf.pull_down_en = 0;
-    io_conf.pull_up_en = 0;
-    gpio_config(&io_conf);
-    
-    // Configure CSN pin as output
-    io_conf.pin_bit_mask = (1ULL << RADIO_CSN_PIN);
-    gpio_config(&io_conf);
-    
-    // Configure Status LED pin as output
-    io_conf.pin_bit_mask = (1ULL << RADIO_STATUS_LED_PIN);
-    gpio_config(&io_conf);
-    
-    // Initialize to safe states
-    gpio_set_level(RADIO_CE_PIN, 0);
-    gpio_set_level(RADIO_CSN_PIN, 1);
-    gpio_set_level(RADIO_STATUS_LED_PIN, 0);
-}
-
-void gpio_write(uint8_t pin, bool level) {
-    gpio_set_level(pin, level ? 1 : 0);
-}
-
-bool gpio_read(uint8_t pin) {
-    return gpio_get_level(pin) == 1;
-}
-
-// ESP-IDF SPI functions
-void spi_init(void) {
-    spi_bus_config_t buscfg = {
-        .mosi_io_num = RADIO_MOSI_PIN,
-        .miso_io_num = RADIO_MISO_PIN,
-        .sclk_io_num = RADIO_SCK_PIN,
-        .quadwp_io_num = -1,
-        .quadhd_io_num = -1,
-        .max_transfer_sz = 32,
-    };
-    
-    spi_device_interface_config_t devcfg = {
-        .clock_speed_hz = 1 * 1000 * 1000, // 1MHz
-        .mode = 0,  // SPI mode 0
-        .spics_io_num = -1,  // CSN controlled manually
-        .queue_size = 7,
-    };
-    
-    // Initialize the SPI bus
-    ESP_ERROR_CHECK(spi_bus_initialize(SPI2_HOST, &buscfg, SPI_DMA_CH_AUTO));
-    ESP_ERROR_CHECK(spi_bus_add_device(SPI2_HOST, &devcfg, &spi_handle));
-}
-
-uint8_t spi_transfer(uint8_t data) {
-    spi_transaction_t trans = {
-        .length = 8,
-        .tx_buffer = &data,
-        .rx_buffer = &data,
-    };
-    
-    ESP_ERROR_CHECK(spi_device_transmit(spi_handle, &trans));
-    return data;
-}
 
 // ESP-IDF timing functions
 void delay_ms(uint32_t ms) {
@@ -102,6 +33,11 @@ void delay_us(uint32_t us) {
 
 uint32_t millis(void) {
     return xTaskGetTickCount() * portTICK_PERIOD_MS;
+}
+
+// GPIO functions for status LED
+void gpio_write(uint8_t pin, bool level) {
+    gpio_set_level(pin, level ? 1 : 0);
 }
 
 void app_main(void) {

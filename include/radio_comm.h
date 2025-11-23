@@ -6,10 +6,6 @@
 #include "../../radio-common/include/radio_common.h"
 #include "../../radio-common/include/radio_config.h"
 
-
-
-
-
 // Radio communication structure - extends RadioCommon with repeater-specific fields
 typedef struct {
     RadioCommon base;  // radio-common base structure
@@ -40,13 +36,7 @@ void radio_flush_tx(RadioComm *radio);
 // Low-level functions - use radio-common implementations
 
 // GPIO functions
-void gpio_init(void);
 void gpio_write(uint8_t pin, bool level);
-bool gpio_read(uint8_t pin);
-
-// SPI functions
-void spi_init(void);
-uint8_t spi_transfer(uint8_t data);
 
 // Arduino compatibility constants
 #define HIGH true

@@ -5,37 +5,10 @@
 static RadioComm g_radio;
 
 // Function declarations - implementations are in main.c
-extern void gpio_init(void);
 extern void gpio_write(uint8_t pin, bool level);
-extern bool gpio_read(uint8_t pin);
-extern void spi_init(void);
-extern uint8_t spi_transfer(uint8_t data);
 extern void delay_ms(uint32_t ms);
 extern void delay_us(uint32_t us);
 extern uint32_t millis(void);
-
-// Platform-specific implementations for radio-common
-bool radio_common_platform_init(RadioCommon* radio) {
-    // Initialize GPIO and SPI using repeater's functions
-    gpio_init();
-    spi_init();
-    return true;
-}
-
-uint8_t radio_common_platform_transfer(RadioCommon* radio, uint8_t data) {
-    // Use repeater's SPI transfer function
-    return spi_transfer(data);
-}
-
-void radio_common_delay_ms(uint32_t ms) {
-    // Use repeater's delay function
-    delay_ms(ms);
-}
-
-void radio_common_delay_us(uint32_t us) {
-    // Use repeater's delay function
-    delay_us(us);
-}
 
 void update_status_led(bool active) {
     static uint32_t last_blink = 0;
@@ -70,7 +43,7 @@ bool radio_init(RadioComm *radio) {
     radio->last_activity_time = 0;
     radio->link_active = false;
     
-    // Initialize using radio-common
+    // Initialize using radio-common (same as play_clock/controller)
     if (!radio_common_init(&radio->base, RADIO_CE_PIN, RADIO_CSN_PIN)) {
         return false;
     }
