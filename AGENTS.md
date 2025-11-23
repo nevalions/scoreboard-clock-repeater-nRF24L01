@@ -28,6 +28,7 @@
 - **Types**: Use standard integer types (`uint8_t`, `uint32_t`, etc.)
 - **Error Handling**: Return bool for success/failure, check return values, use ESP_LOG for logging
 - **Comments**: Minimal, only for complex hardware interactions
+- **Git Commits**: Never use opencode user in git commit messages
 
 ## Architecture
 - **Hardware Abstraction**: ESP-IDF drivers for ESP32 board in main.c, radio logic in radio_comm.c/h
